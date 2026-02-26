@@ -288,11 +288,16 @@ app.put('/api/admin/stands/:id', async (req, res) => {
   }
 });
 
-// Weather proxy (using wttr.in)
+// Weather using Open-Meteo (more reliable than wttr.in)
 app.get('/api/weather', async (req, res) => {
   try {
-    const location = req.query.location || 'auto';
-    const response = await fetch(`https://wttr.in/${location}?format=j1`);
+    // Default to Louisiana coordinates (can be customized)
+    const lat = req.query.lat || '30.5';
+    const lon = req.query.lon || '-91.0';
+    
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,wind_direction_10m&daily=sunrise,sunset&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FChicago&forecast_days=1`
+    );
     const data = await response.json();
     res.json(data);
   } catch (error) {
