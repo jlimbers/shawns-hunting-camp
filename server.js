@@ -295,13 +295,29 @@ app.get('/api/weather', async (req, res) => {
     const lat = req.query.lat || '30.5';
     const lon = req.query.lon || '-91.0';
     
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+    
     const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,wind_direction_10m&daily=sunrise,sunset&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FChicago&forecast_days=1`
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m,wind_direction_10m&daily=sunrise,sunset&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FChicago&forecast_days=1`,
+      { signal: controller.signal }
     );
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      throw new Error(`Weather API responded with ${response.status}`);
+    }
+    
     const data = await response.json();
+    console.log('Weather data:', JSON.stringify(data));
     res.json(data);
   } catch (error) {
-    res.status(500).json({ error: 'Weather unavailable' });
+    console.error('Weather API error:', error.message);
+    res.status(500).json({ 
+      error: 'Weather unavailable',
+      detail: error.message 
+    });
   }
 });
 
