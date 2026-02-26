@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "name": "Shawn",
+    "pin": "1234",
+    "isAdmin": true,
+    "currentStand": 2
+  }
+]

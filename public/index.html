@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Shawn's Hunting Camp</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a2a1a 0%, #2d4a2d 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 0 20px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    header .subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    /* Login Screen */
+    .login-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 60vh;
+    }
+
+    .login-form {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .login-form h2 {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: white;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      margin-top: 10px;
+    }
+
+    /* Main App */
+    .main-app {
+      display: none;
+    }
+
+    .user-bar {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #4CAF50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .logout-btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      background: rgba(244, 67, 54, 0.2);
+      border: 1px solid rgba(244, 67, 54, 0.5);
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Weather Widget */
+    .weather-widget {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .weather-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .weather-temp {
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    .weather-details {
+      text-align: right;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .sun-times {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sun-time {
+      text-align: center;
+    }
+
+    .sun-time-label {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-bottom: 5px;
+    }
+
+    .sun-time-value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Status Section */
+    .status-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .current-stand {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .current-stand-label {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-bottom: 10px;
+    }
+
+    .current-stand-value {
+      font-size: 32px;
+      font-weight: bold;
+      color: #4CAF50;
+    }
+
+    .checkout-btn {
+      margin-top: 15px;
+    }
+
+    /* Who's Out Section */
+    .whos-out-section {
+      background: rgba(76, 175, 80, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      border: 2px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .whos-out-section h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #4CAF50;
+    }
+
+    .whos-out-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border-left: 4px solid #4CAF50;
+    }
+
+    .whos-out-hunter {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .whos-out-stand {
+      background: rgba(76, 175, 80, 0.3);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .whos-out-empty {
+      text-align: center;
+      padding: 20px;
+      opacity: 0.6;
+      font-style: italic;
+    }
+
+    /* Stand Grid */
+    .stands-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stands-section h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .stands-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .stand-card {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+      border: 2px solid transparent;
+    }
+
+    .stand-card.available {
+      background: rgba(76, 175, 80, 0.2);
+      border-color: rgba(76, 175, 80, 0.5);
+    }
+
+    .stand-card.available:active {
+      transform: scale(0.95);
+      background: rgba(76, 175, 80, 0.4);
+    }
+
+    .stand-card.occupied {
+      background: rgba(244, 67, 54, 0.2);
+      border-color: rgba(244, 67, 54, 0.5);
+      cursor: not-allowed;
+    }
+
+    .stand-number {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .stand-hunter {
+      font-size: 10px;
+      opacity: 0.9;
+      text-align: center;
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Activity Log */
+    .activity-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .activity-section h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .activity-log {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .activity-item {
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .activity-time {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-top: 5px;
+    }
+
+    /* Log Entry Form */
+    .log-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .log-section h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .log-form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 80px;
+      margin-bottom: 10px;
+    }
+
+    .log-form textarea:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    .log-type-btns {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .log-type-btns button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .log-type-btns button.active {
+      background: #4CAF50;
+      border-color: #4CAF50;
+    }
+
+    /* Admin Panel */
+    .admin-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .admin-section h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      color: #FFD700;
+    }
+
+    .hunter-list {
+      margin-bottom: 20px;
+    }
+
+    .hunter-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .remove-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(244, 67, 54, 0.3);
+      border: 1px solid rgba(244, 67, 54, 0.6);
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+      opacity: 0.7;
+    }
+
+    /* Navigation */
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .nav-tab {
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+    }
+
+    .nav-tab.active {
+      background: #4CAF50;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🦌 Shawn's Hunting Camp</h1>
+      <p class="subtitle">Stand Check-In System</p>
+    </header>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+      <div class="login-form">
+        <h2>Hunter Login</h2>
+        <div class="input-group">
+          <label>Name</label>
+          <input type="text" id="loginName" placeholder="Enter your name">
+        </div>
+        <div class="input-group">
+          <label>PIN</label>
+          <input type="password" id="loginPin" placeholder="Enter your PIN" inputmode="numeric" maxlength="4">
+        </div>
+        <button class="btn btn-primary" onclick="login()">Login</button>
+        <p id="loginError" style="color: #f44336; margin-top: 15px; text-align: center; display: none;"></p>
+      </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="main-app">
+      <!-- User Bar -->
+      <div class="user-bar">
+        <div class="user-info">
+          <div class="user-avatar" id="userAvatar"></div>
+          <div>
+            <div style="font-weight: bold;" id="userName"></div>
+            <div style="font-size: 12px; opacity: 0.7;" id="userRole"></div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+
+      <!-- Weather Widget -->
+      <div class="weather-widget" id="weatherWidget">
+        <div class="weather-main">
+          <div>
+            <div class="weather-temp" id="weatherTemp">--°</div>
+            <div id="weatherDesc">Loading...</div>
+          </div>
+          <div class="weather-details">
+            <div>💨 <span id="weatherWind">-- mph</span></div>
+            <div>💧 <span id="weatherHumidity">--%</span></div>
+          </div>
+        </div>
+        <div class="sun-times">
+          <div class="sun-time">
+            <div class="sun-time-label">🌅 Sunrise</div>
+            <div class="sun-time-value" id="sunrise">--:--</div>
+          </div>
+          <div class="sun-time">
+            <div class="sun-time-label">🌇 Sunset</div>
+            <div class="sun-time-value" id="sunset">--:--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current Stand Status -->
+      <div class="status-section" id="statusSection">
+        <div class="current-stand">
+          <div class="current-stand-label">Currently At</div>
+          <div class="current-stand-value" id="currentStandDisplay">Not Checked In</div>
+          <button class="btn btn-danger checkout-btn hidden" id="checkoutBtn" onclick="checkout()">Check Out</button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab('stands')">Stands</button>
+        <button class="nav-tab" onclick="switchTab('activity')">Activity</button>
+        <button class="nav-tab" onclick="switchTab('log')">Log Entry</button>
+        <button class="nav-tab hidden" id="adminTab" onclick="switchTab('admin')">Admin</button>
+      </div>
+
+      <!-- Stands Tab -->
+      <div id="standsTab" class="tab-content active">
+        <!-- Who's Out Section -->
+        <div class="whos-out-section">
+          <h2>🦌 Who's Out</h2>
+          <div id="whosOutList"></div>
+        </div>
+
+        <div class="stands-section">
+          <h2>Select Stand</h2>
+          <div class="stands-grid" id="standsGrid"></div>
+        </div>
+      </div>
+
+      <!-- Activity Tab -->
+      <div id="activityTab" class="tab-content">
+        <div class="activity-section">
+          <h2>Activity Log</h2>
+          <div class="activity-log" id="activityLog"></div>
+        </div>
+      </div>
+
+      <!-- Log Entry Tab -->
+      <div id="logTab" class="tab-content">
+        <div class="log-section">
+          <h2>Log Entry</h2>
+          <div class="log-form">
+            <div class="log-type-btns">
+              <button class="active" data-type="sighting" onclick="selectLogType(this)">Sighting</button>
+              <button data-type="harvest" onclick="selectLogType(this)">Harvest</button>
+              <button data-type="note" onclick="selectLogType(this)">Note</button>
+            </div>
+            <textarea id="logDescription" placeholder="Describe what you saw or did..."></textarea>
+            <button class="btn btn-primary" onclick="submitLog()">Submit Log</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Tab -->
+      <div id="adminTab" class="tab-content">
+        <div class="admin-section">
+          <h2>🔧 Admin Panel</h2>
+          
+          <h3 style="margin: 20px 0 10px;">Hunters</h3>
+          <div class="hunter-list" id="hunterList"></div>
+          
+          <h3 style="margin: 20px 0 10px;">Add New Hunter</h3>
+          <div class="input-group">
+            <label>Name</label>
+            <input type="text" id="newHunterName" placeholder="Hunter name">
+          </div>
+          <div class="input-group">
+            <label>PIN (4 digits)</label>
+            <input type="password" id="newHunterPin" placeholder="0000" inputmode="numeric" maxlength="4">
+          </div>
+          <button class="btn btn-primary" onclick="addHunter()">Add Hunter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let currentLogType = 'sighting';
+    const API_BASE = window.location.origin;
+
+    // Login
+    async function login() {
+      const name = document.getElementById('loginName').value.trim();
+      const pin = document.getElementById('loginPin').value.trim();
+      const errorEl = document.getElementById('loginError');
+
+      if (!name || !pin) {
+        errorEl.textContent = 'Please enter name and PIN';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, pin })
+        });
+
+        if (!res.ok) {
+          errorEl.textContent = 'Invalid name or PIN';
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        currentUser = await res.json();
+        errorEl.style.display = 'none';
+        
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+        
+        initApp();
+      } catch (error) {
+        errorEl.textContent = 'Login failed. Please try again.';
+        errorEl.style.display = 'block';
+      }
+    }
+
+    // Logout
+    function logout() {
+      currentUser = null;
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('mainApp').style.display = 'none';
+      document.getElementById('loginName').value = '';
+      document.getElementById('loginPin').value = '';
+    }
+
+    // Initialize app
+    async function initApp() {
+      document.getElementById('userName').textContent = currentUser.name;
+      document.getElementById('userAvatar').textContent = currentUser.name[0].toUpperCase();
+      document.getElementById('userRole').textContent = currentUser.isAdmin ? 'Admin' : 'Hunter';
+      
+      if (currentUser.isAdmin) {
+        document.getElementById('adminTab').classList.remove('hidden');
+      }
+
+      loadWeather();
+      loadStands();
+      loadActivity();
+      updateStatus();
+
+      // Auto-refresh every 30 seconds
+      setInterval(() => {
+        loadStands();
+        loadActivity();
+        updateStatus();
+      }, 30000);
+    }
+
+    // Load weather
+    async function loadWeather() {
+      try {
+        const res = await fetch(`${API_BASE}/api/weather`);
+        const data = await res.json();
+        
+        const current = data.current_condition[0];
+        const astronomy = data.weather[0].astronomy[0];
+        
+        document.getElementById('weatherTemp').textContent = current.temp_F + '°F';
+        document.getElementById('weatherDesc').textContent = current.weatherDesc[0].value;
+        document.getElementById('weatherWind').textContent = current.windspeedMiles + ' mph';
+        document.getElementById('weatherHumidity').textContent = current.humidity + '%';
+        document.getElementById('sunrise').textContent = astronomy.sunrise;
+        document.getElementById('sunset').textContent = astronomy.sunset;
+      } catch (error) {
+        console.error('Weather load failed:', error);
+      }
+    }
+
+    // Load stands
+    async function loadStands() {
+      try {
+        const res = await fetch(`${API_BASE}/api/stands`);
+        const stands = await res.json();
+        
+        // Update Who's Out section
+        const whosOutList = document.getElementById('whosOutList');
+        const occupiedStands = stands.filter(s => s.occupied);
+        
+        if (occupiedStands.length === 0) {
+          whosOutList.innerHTML = '<div class="whos-out-empty">No one is out hunting right now</div>';
+        } else {
+          whosOutList.innerHTML = occupiedStands.map(stand => `
+            <div class="whos-out-item">
+              <div class="whos-out-hunter">${stand.hunter}</div>
+              <div class="whos-out-stand">Stand ${stand.id}</div>
+            </div>
+          `).join('');
+        }
+        
+        // Update stands grid
+        const grid = document.getElementById('standsGrid');
+        grid.innerHTML = '';
+        
+        stands.forEach(stand => {
+          const card = document.createElement('div');
+          card.className = `stand-card ${stand.occupied ? 'occupied' : 'available'}`;
+          
+          if (!stand.occupied && !currentUser.currentStand) {
+            card.onclick = () => checkin(stand.id);
+          }
+          
+          card.innerHTML = `
+            <div class="stand-number">${stand.id}</div>
+            ${stand.occupied ? `<div class="stand-hunter">${stand.hunter}</div>` : ''}
+          `;
+          
+          grid.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Failed to load stands:', error);
+      }
+    }
+
+    // Check in
+    async function checkin(standId) {
+      if (currentUser.currentStand) {
+        alert('Please check out first');
+        return;
+      }
+
+      if (!confirm(`Check in to Stand ${standId}?`)) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/checkin`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ hunterId: currentUser.id, standId })
+        });
+
+        if (!res.ok) {
+          const error = await res.json();
+          alert(error.error || 'Check-in failed');
+          return;
+        }
+
+        const result = await res.json();
+        currentUser.currentStand = standId;
+        
+        loadStands();
+        loadActivity();
+        updateStatus();
+      } catch (error) {
+        alert('Check-in failed');
+      }
+    }
+
+    // Check out
+    async function checkout() {
+      if (!confirm('Check out from your stand?')) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/checkout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ hunterId: currentUser.id })
+        });
+
+        if (!res.ok) {
+          alert('Check-out failed');
+          return;
+        }
+
+        currentUser.currentStand = null;
+        
+        loadStands();
+        loadActivity();
+        updateStatus();
+      } catch (error) {
+        alert('Check-out failed');
+      }
+    }
+
+    // Update status
+    function updateStatus() {
+      const display = document.getElementById('currentStandDisplay');
+      const btn = document.getElementById('checkoutBtn');
+      
+      if (currentUser.currentStand) {
+        display.textContent = `Stand ${currentUser.currentStand}`;
+        display.style.color = '#4CAF50';
+        btn.classList.remove('hidden');
+      } else {
+        display.textContent = 'Not Checked In';
+        display.style.color = 'rgba(255, 255, 255, 0.5)';
+        btn.classList.add('hidden');
+      }
+    }
+
+    // Load activity
+    async function loadActivity() {
+      try {
+        const res = await fetch(`${API_BASE}/api/activity`);
+        const activity = await res.json();
+        
+        const log = document.getElementById('activityLog');
+        log.innerHTML = '';
+        
+        if (activity.length === 0) {
+          log.innerHTML = '<div class="activity-item">No activity yet</div>';
+          return;
+        }
+        
+        activity.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'activity-item';
+          
+          let icon = '📍';
+          if (item.type === 'checkin') icon = '✅';
+          if (item.type === 'checkout') icon = '🚪';
+          if (item.type === 'sighting') icon = '👀';
+          if (item.type === 'harvest') icon = '🎯';
+          if (item.type === 'note') icon = '📝';
+          
+          let text = '';
+          if (item.type === 'checkin') {
+            text = `${item.hunter} checked in to ${item.stand}`;
+          } else if (item.type === 'checkout') {
+            text = `${item.hunter} checked out from ${item.stand}`;
+          } else {
+            text = `${item.hunter}: ${item.description}`;
+          }
+          
+          const time = new Date(item.timestamp).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit'
+          });
+          
+          div.innerHTML = `
+            ${icon} ${text}
+            <div class="activity-time">${time}</div>
+          `;
+          
+          log.appendChild(div);
+        });
+      } catch (error) {
+        console.error('Failed to load activity:', error);
+      }
+    }
+
+    // Select log type
+    function selectLogType(btn) {
+      document.querySelectorAll('.log-type-btns button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentLogType = btn.dataset.type;
+    }
+
+    // Submit log
+    async function submitLog() {
+      const description = document.getElementById('logDescription').value.trim();
+      
+      if (!description) {
+        alert('Please enter a description');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/log`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            hunterId: currentUser.id,
+            type: currentLogType,
+            description
+          })
+        });
+
+        if (!res.ok) {
+          alert('Failed to submit log');
+          return;
+        }
+
+        document.getElementById('logDescription').value = '';
+        loadActivity();
+        switchTab('activity');
+      } catch (error) {
+        alert('Failed to submit log');
+      }
+    }
+
+    // Switch tab
+    function switchTab(tab) {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      
+      event.target.classList.add('active');
+      document.getElementById(tab + 'Tab').classList.add('active');
+      
+      if (tab === 'admin' && currentUser.isAdmin) {
+        loadHunterList();
+      }
+    }
+
+    // Load hunter list (admin)
+    async function loadHunterList() {
+      try {
+        const res = await fetch(`${API_BASE}/api/hunters`);
+        const hunters = await res.json();
+        
+        const list = document.getElementById('hunterList');
+        list.innerHTML = '';
+        
+        hunters.forEach(hunter => {
+          const div = document.createElement('div');
+          div.className = 'hunter-item';
+          div.innerHTML = `
+            <div>
+              <strong>${hunter.name}</strong>
+              ${hunter.isAdmin ? ' <span style="color: #FFD700;">⭐ Admin</span>' : ''}
+            </div>
+            ${!hunter.isAdmin ? `<button class="remove-btn" onclick="removeHunter(${hunter.id})">Remove</button>` : ''}
+          `;
+          list.appendChild(div);
+        });
+      } catch (error) {
+        console.error('Failed to load hunters:', error);
+      }
+    }
+
+    // Add hunter (admin)
+    async function addHunter() {
+      const name = document.getElementById('newHunterName').value.trim();
+      const pin = document.getElementById('newHunterPin').value.trim();
+      
+      if (!name || !pin || pin.length !== 4) {
+        alert('Please enter a valid name and 4-digit PIN');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/hunters`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, pin, isAdmin: false })
+        });
+
+        if (!res.ok) {
+          alert('Failed to add hunter');
+          return;
+        }
+
+        document.getElementById('newHunterName').value = '';
+        document.getElementById('newHunterPin').value = '';
+        loadHunterList();
+      } catch (error) {
+        alert('Failed to add hunter');
+      }
+    }
+
+    // Remove hunter (admin)
+    async function removeHunter(id) {
+      if (!confirm('Remove this hunter?')) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/hunters/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (!res.ok) {
+          alert('Failed to remove hunter');
+          return;
+        }
+
+        loadHunterList();
+      } catch (error) {
+        alert('Failed to remove hunter');
+      }
+    }
+
+    // Enter key login
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('loginPin').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') login();
+      });
+    });
+  </script>
+</body>
+</html>

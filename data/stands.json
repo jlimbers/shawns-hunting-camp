@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "name": "Stand 1",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 2,
+    "name": "Stand 2",
+    "occupied": true,
+    "hunter": "Shawn",
+    "checkInTime": "2026-02-25T22:30:36.371Z"
+  },
+  {
+    "id": 3,
+    "name": "Stand 3",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 4,
+    "name": "Stand 4",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 5,
+    "name": "Stand 5",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 6,
+    "name": "Stand 6",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 7,
+    "name": "Stand 7",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 8,
+    "name": "Stand 8",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 9,
+    "name": "Stand 9",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 10,
+    "name": "Stand 10",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 11,
+    "name": "Stand 11",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 12,
+    "name": "Stand 12",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 13,
+    "name": "Stand 13",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 14,
+    "name": "Stand 14",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 15,
+    "name": "Stand 15",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 16,
+    "name": "Stand 16",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 17,
+    "name": "Stand 17",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 18,
+    "name": "Stand 18",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 19,
+    "name": "Stand 19",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  },
+  {
+    "id": 20,
+    "name": "Stand 20",
+    "occupied": false,
+    "hunter": null,
+    "checkInTime": null
+  }
+]
